@@ -19,7 +19,7 @@ playing = False # variable so we dont play a sound a million times when the door
 
 # Different modes
 modeList = "random, seinfeld, vsauce"
-mode = "random"
+mode = "seinfeld"
 
 
 
@@ -29,6 +29,7 @@ while True:
 #     Parent if statement for socket to determine what mode
     volumeLevel = "106555"
     if (GPIO.input(10) == False and playing == False and mode == "random"):
+        sleep(1)
         randomSound = random.choice(os.listdir('/home/pi/sounds/')) # pick a random sound
         print(randomSound)
         playing = True
@@ -37,7 +38,8 @@ while True:
         playing = False
 
     if (GPIO.input(10) == False and playing == False and mode == "seinfeld"):
-	listSound = os.listdir('/home/pi/sounds/')
+        sleep(1)
+        listSound = os.listdir('/home/pi/sounds/')
         seinfeldList = []
         for i in listSound:
             if "seinfeld" in i:
