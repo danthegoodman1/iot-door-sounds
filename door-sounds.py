@@ -21,10 +21,11 @@ playing = False # variable so we dont play a sound a million times when the door
 # Connect to websocket
 while True:
 #     Parent if statement for socket to determine what mode
+    volumeLevel = 106555
     if (GPIO.input(10) == False and playing == False):
         randomSound = random.choice(os.listdir('/home/pi/sounds/')) # pick a random song
         print(randomSound)
         playing = True
-        os.system('mpg123 -q /home/pi/sounds/' + randomSound + ' &')
+        os.system('mpg123 -q /home/pi/sounds/' + randomSound + ' -f ' + volumeLevel + ' --scale ' + volumeLevel + ' &')
         sleep(5)
         playing = False
