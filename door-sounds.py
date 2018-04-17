@@ -14,18 +14,38 @@ GPIO.setup(10, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # Set pin 10 to be an input 
 
 playing = False # variable so we dont play a sound a million times when the door opens
 
+
 # Get the different sound lists
+
+# Different modes
+modeList = "random, seinfeld, vsauce"
+mode = "random"
+
 
 
 
 # Connect to websocket
 while True:
 #     Parent if statement for socket to determine what mode
-    volumeLevel = 106555
-    if (GPIO.input(10) == False and playing == False):
-        randomSound = random.choice(os.listdir('/home/pi/sounds/')) # pick a random song
+    volumeLevel = "106555"
+    if (GPIO.input(10) == False and playing == False and mode == "random"):
+        randomSound = random.choice(os.listdir('/home/pi/sounds/')) # pick a random sound
         print(randomSound)
         playing = True
-        os.system('mpg123 -q /home/pi/sounds/' + randomSound + ' -f ' + volumeLevel + ' --scale ' + volumeLevel + ' &')
+        os.system('mpg123 -q -f ' + volumeLevel + ' --scale ' + volumeLevel + ' /home/pi/sounds/' + randomSound + ' &')
+        sleep(5)
+        playing = False
+
+    if (GPIO.input(10) == False and playing == False and mode == "seinfeld"):
+	listSound = os.listdir('/home/pi/sounds/')
+        seinfeldList = []
+        for i in listSound:
+            if "seinfeld" in i:
+                seinfeldList.append(i)
+
+        randomSound = random.choice(seinfeldList) # pick a random seinfeld sound
+        print(randomSound)
+        playing = True
+        os.system('mpg123 -q -f ' + volumeLevel + ' --scale ' + volumeLevel + ' /home/pi/sounds/' + randomSound + ' &')
         sleep(5)
         playing = False
