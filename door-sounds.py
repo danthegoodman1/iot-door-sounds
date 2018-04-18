@@ -38,11 +38,26 @@ while True:
         playing = False
 
     if (GPIO.input(10) == False and playing == False and mode == "seinfeld"):
-        sleep(1)
+        sleep(0.4)
         listSound = os.listdir('/home/pi/sounds/')
         seinfeldList = []
         for i in listSound:
             if "seinfeld" in i:
+                seinfeldList.append(i)
+
+        randomSound = random.choice(seinfeldList) # pick a random seinfeld sound
+        print(randomSound)
+        playing = True
+        os.system('mpg123 -q -f ' + volumeLevel + ' --scale ' + volumeLevel + ' /home/pi/sounds/' + randomSound + ' &')
+        sleep(5)
+        playing = False
+
+    if (GPIO.input(10) == False and playing == False and mode == "vsauce"):
+        sleep(0.4)
+        listSound = os.listdir('/home/pi/sounds/')
+        seinfeldList = []
+        for i in listSound:
+            if "vsauce" in i:
                 seinfeldList.append(i)
 
         randomSound = random.choice(seinfeldList) # pick a random seinfeld sound
